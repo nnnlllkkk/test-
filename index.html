@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ru" class="light-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио Веб-Разработчика</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2D3748;
+            --accent: #4299E1;
+            --secondary: #718096;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #48BB78;
+            --warning: #ED8936;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+
+        body.dark-theme {
+            background: var(--dark);
+            color: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .theme-toggle:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Герой */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 60px;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* О себе */
+        .about {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+
+        .dark-theme .about h2 {
+            color: var(--light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .about-text {
+            text-align: left;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .dark-theme .about-text p {
+            color: #CBD5E0;
+        }
+
+        .avatar {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #4299E1 0%, #38B2AC 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Функции */
+        .features {
+            padding: 80px 0;
+            background: #F8FAFC;
+            border-radius: 30px;
+        }
+
+        .dark-theme .features {
+            background: #2D3748;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--primary);
+        }
+
+        .dark-theme .features h2 {
+            color: var(--light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-theme .feature-card {
+            background: var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            color: var(--accent);
+            margin-bottom: 25px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .dark-theme .feature-card h3 {
+            color: var(--light);
+        }
+
+        .feature-card p {
+            color: var(--secondary);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .feature-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .feature-btn:hover {
+            background: #3182ce;
+        }
+
+        /* Услуги */
+        .products {
+            padding: 80px 0;
+        }
+
+        .products h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--primary);
+        }
+
+        .dark-theme .products h2 {
+            color: var(--light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .dark-theme .product-card {
+            background: var(--primary);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #4299E1 0%, #38B2AC 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+
+        .product-content {
+            padding: 25px;
+        }
+
+        .product-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .dark-theme .product-content h3 {
+            color: var(--light);
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart:hover {
+            background: #3182ce;
+        }
+
+        /* Подвал с технологиями */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section p {
+            color: #CBD5E0;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tech-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-links ul {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 15px;
+        }
+
+        .quick-links a {
+            color: #CBD5E0;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #CBD5E0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Корзина на главной */
+        .cart-preview {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(66, 153, 225, 0.3);
+            z-index: 100;
+            transition: all 0.3s;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-preview:hover {
+            transform: scale(1.1);
+            background: #3182ce;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #F56565;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .avatar {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>DevPortfolio</span>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#about"><i class="fas fa-user"></i> Обо мне</a>
+                    <a href="#features"><i class="fas fa-cogs"></i> Функции</a>
+                    <a href="#products"><i class="fas fa-box"></i> Услуги</a>
+                    
+                    <div class="auth-buttons">
+                        <a href="pages/login.html" class="btn btn-outline">
+                            <i class="fas fa-sign-in-alt"></i> Войти
+                        </a>
+                        <a href="pages/register.html" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Регистрация
+                        </a>
+                    </div>
+                    
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i> Тема
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="container">
+            <h1>Создаю цифровые продукты, которые работают</h1>
+            <p>Веб-разработчик с фокусом на создании современных, адаптивных и высокопроизводительных веб-приложений</p>
+            
+            <div class="cta-buttons">
+                <a href="pages/profile.html" class="cta-btn">
+                    <i class="fas fa-user-circle"></i> Мой профиль
+                </a>
+                <a href="pages/bucket.html" class="cta-btn">
+                    <i class="fas fa-shopping-cart"></i> Корзина покупок
+                </a>
+                <a href="#contact" class="cta-btn">
+                    <i class="fas fa-envelope"></i> Связаться со мной
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- О себе -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2><i class="fas fa-user-tie"></i> Обо мне</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Привет! Я веб-разработчик с более чем 3-летним опытом создания современных веб-приложений.</p>
+                    <p>Специализируюсь на frontend разработке с использованием React, Vue.js и современных CSS-фреймворков. Также имею опыт работы с backend на Node.js и Python.</p>
+                    <p>Верю в чистый код, тестирование и постоянное обучение. Люблю решать сложные задачи и создавать продукты, которые приносят пользу пользователям.</p>
+                    
+                    <div style="margin-top: 30px;">
+                        <a href="pages/profile.html" class="feature-btn">
+                            <i class="fas fa-external-link-alt"></i> Перейти в профиль
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="avatar">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Функции -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2><i class="fas fa-star"></i> Что я предлагаю</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h3>Имитация профиля</h3>
+                    <p>Полноценный профиль пользователя с возможностью входа, редактирования данных и сохранения настроек.</p>
+                    <a href="pages/login.html" class="feature-btn">Попробовать</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Корзина покупок</h3>
+                    <p>Рабочая корзина с добавлением товаров, изменением количества и оформлением заказа.</p>
+                    <a href="#products" class="feature-btn">Добавить товары</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Темная тема</h3>
+                    <p>Переключение между светлой и темной темами. Настройки сохраняются между сессиями.</p>
+                    <button onclick="toggleTheme()" class="feature-btn">Сменить тему</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги/Товары -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2><i class="fas fa-box-open"></i> Мои услуги</h2>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Веб-сайт "Визитка"</h3>
+                        <p>Современный одностраничный сайт для бизнеса</p>
+                        <div class="product-price">25 000 ₽</div>
+                        <button class="add-to-cart" onclick="addToCart(1)">
+                            <i class="fas fa-cart-plus"></i> Добавить в корзину
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Интернет-магазин</h3>
+                        <p>Полнофункциональный интернет-магазин</p>
+                        <div class="product-price">75 000 ₽</div>
+                        <button class="add-to-cart" onclick="addToCart(2)">
+                            <i class="fas fa-cart-plus"></i> Добавить в корзину
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Мобильное приложение</h3>
+                        <p>Кроссплатформенное мобильное приложение</p>
+                        <div class="product-price">120 000 ₽</div>
+                        <button class="add-to-cart" onclick="addToCart(3)">
+                            <i class="fas fa-cart-plus"></i> Добавить в корзину
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>UI/UX Дизайн</h3>
+                        <p>Дизайн интерфейсов и пользовательских сценариев</p>
+                        <div class="product-price">35 000 ₽</div>
+                        <button class="add-to-cart" onclick="addToCart(4)">
+                            <i class="fas fa-cart-plus"></i> Добавить в корзину
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал с технологиями -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-code"></i> О проекте</h3>
+                    <p>Этот проект демонстрирует навыки веб-разработки, включая создание адаптивного дизайна, работу с JavaScript и имитацию реальных функций.</p>
+                    
+                    <h3 style="margin-top: 30px;"><i class="fas fa-cogs"></i> Используемые технологии</h3>
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <i class="fab fa-html5"></i> HTML5
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-css3-alt"></i> CSS3
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-js"></i> JavaScript
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-git-alt"></i> Git
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-database"></i> LocalStorage
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-font-awesome"></i> Font Awesome
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-section quick-links">
+                    <h3><i class="fas fa-link"></i> Быстрые ссылки</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="pages/profile.html"><i class="fas fa-user"></i> Профиль</a></li>
+                        <li><a href="pages/bucket.html"><i class="fas fa-shopping-cart"></i> Корзина</a></li>
+                        <li><a href="pages/login.html"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+                        <li><a href="pages/register.html"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3><i class="fas fa-envelope"></i> Контакты</h3>
+                    <p><i class="fas fa-envelope"></i> contact@devportfolio.ru</p>
+                    <p><i class="fas fa-phone"></i> +7 (999) 123-45-67</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, Россия</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 Портфолио Веб-Разработчика. Все права защищены.</p>
+                <p>Проект создан в учебных целях</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Корзина -->
+    <div class="cart-preview" onclick="window.location.href='pages/bucket.html'">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script>
+        // Управление корзиной
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cart = getCart();
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function addToCart(productId) {
+            const cart = getCart();
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    quantity: 1
+                });
+            }
+            
+            saveCart(cart);
+            
+            // Анимация добавления
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Добавлено!';
+            btn.style.background = '#48BB78';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 1500);
+            
+            alert('Товар добавлен в корзину!');
+        }
+
+        // Переключение темы
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('portfolio_theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            localStorage.setItem('portfolio_theme', newTheme);
+            document.body.classList.toggle('dark-theme', newTheme === 'dark');
+            
+            // Обновляем кнопку
+            const btn = document.querySelector('.theme-toggle');
+            const icon = btn.querySelector('i');
+            
+            if (newTheme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                btn.innerHTML = '<i class="fas fa-sun"></i> Светлая';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                btn.innerHTML = '<i class="fas fa-moon"></i> Темная';
+            }
+            
+            alert(`Тема изменена на ${newTheme === 'dark' ? 'темную' : 'светлую'}`);
+        }
+
+        // Инициализация
+        window.onload = function() {
+            // Применяем тему
+            const savedTheme = localStorage.getItem('portfolio_theme') || 'light';
+            document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+            
+            // Обновляем кнопку темы
+            const themeBtn = document.getElementById('themeToggle');
+            if (themeBtn) {
+                const icon = themeBtn.querySelector('i');
+                if (savedTheme === 'dark') {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    themeBtn.innerHTML = '<i class="fas fa-sun"></i> Светлая';
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    themeBtn.innerHTML = '<i class="fas fa-moon"></i> Темная';
+                }
+            }
+            
+            // Обновляем счетчик корзины
+            updateCartCount();
+            
+            // Проверяем авторизацию
+            const user = localStorage.getItem('current_user');
+            if (user) {
+                console.log('Пользователь авторизован');
+            }
+        };
+    </script>
+</body>
+</html>
